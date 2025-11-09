@@ -1,20 +1,26 @@
 const { NotImplementedError } = require('../lib');
+function getCommonCharacterCount(s1, s2) {
+  if (typeof s1 !== 'string' || typeof s2 !== 'string') return 0;
 
-/**
- * Given two strings, find the number of common characters between them.
- *
- * @param {String} s1
- * @param {String} s2
- * @return {Number}
- *
- * @example
- * For s1 = "aabcc" and s2 = "adcaa", the output should be 3
- * Strings have 3 common characters - 2 "a"s and 1 "c".
- */
+  const countMap = (s) => {
+    const m = Object.create(null);
+    for (const ch of s) {
+      m[ch] = (m[ch] || 0) + 1;
+    }
+    return m;
+  };
 
-function getCommonCharacterCount(/* s1, s2 */) {
-  // Remove line below and write your code here
-  throw new NotImplementedError('Not implemented');
+  const m1 = countMap(s1);
+  const m2 = countMap(s2);
+
+  let common = 0;
+  for (const ch in m1) {
+    if (Object.prototype.hasOwnProperty.call(m2, ch)) {
+      common += Math.min(m1[ch], m2[ch]);
+    }
+  }
+
+  return common;
 }
 
 module.exports = {

@@ -1,21 +1,23 @@
 const { NotImplementedError } = require('../lib');
 
-/**
- * Given some integer, find the maximal number you can obtain
- * by deleting exactly one digit of the given number.
- *
- * @param {Number} n
- * @return {Number}
- *
- * @example
- * For n = 152, the output should be 52
- *
- */
-function deleteDigit(/* n */) {
-  // Remove line below and write your code here
-  throw new NotImplementedError('Not implemented');
+function deleteDigit(n) {
+  if (typeof n !== 'number' || !isFinite(n)) return NaN;
+
+  const isNegative = n < 0;
+  const s = Math.abs(n).toString();
+
+  let max = -Infinity;
+  for (let i = 0; i < s.length; i++) {
+    const candidateStr = s.slice(0, i) + s.slice(i + 1);
+    const candidateNum = Number(candidateStr === '' ? '0' : candidateStr);
+    const value = isNegative ? -candidateNum : candidateNum;
+    if (value > max) max = value;
+  }
+
+  return max;
 }
 
 module.exports = {
   deleteDigit
 };
+
